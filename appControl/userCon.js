@@ -11,7 +11,7 @@ const users = {
                     res.cookie('NewToken', token)
                     res.redirect("/mainAppView");
                 } else{
-                    res.render('view/mainAppView'),{
+                    res.render('layouts/mainAppView'),{
                         error : true,
                         message:"Token nie mógł zostać przypisany",
                     }
@@ -20,7 +20,7 @@ const users = {
             })
             .catch((err) => {
                 if (err.code) {
-                    res.render("view/mainAppView", {
+                    res.render("layouts/mainAppView", {
                         error: true,
                         message: "Użytkownik już istnieje",
                         user: req.body,

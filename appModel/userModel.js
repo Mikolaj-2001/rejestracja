@@ -29,7 +29,7 @@ userModel.pre('save', (next) => {
     next()
 })
 userModel.methods.generateAuthToken = () => {
-    const token = jwt.sign({ _id: this.id }, "OnwardKey")
+    const token = jwt.sign({ _id: this.id },process.env.TOKEN_KEY)
     return token
 }
 module.exports = mongoose.model('newUser', userModel)
