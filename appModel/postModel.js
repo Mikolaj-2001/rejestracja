@@ -2,14 +2,15 @@ const mongoose = require('mongoose')
 
 const Post = new mongoose.Schema(
     {
-        title: String,
-        content: String,
-        author:{
-            type:mongoose.Schema.Types.ObjectId,
+        fullName: String,
+        selectedEvent: String, required: true,
+        city: String, required: true,
+        author: {
+            type: mongoose.Schema.Types.ObjectId,
             ref: "newUser"
         }
     },
-    {timestamps: true}
+    { timestamps: true }
 )
 
-module.exports = mongoose.model("Post",Post)
+module.exports = mongoose.model("Post", Post)

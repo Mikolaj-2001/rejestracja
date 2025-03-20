@@ -5,8 +5,6 @@ const userModel = new mongoose.Schema(
     {
         name: { type: String, required: true, unique: true },
         surname: { type: String, required: true, unique: true },
-        selectedEvent: { type: String, required: true },
-        city: { type: String, required: true },
         posts: [{
             type: mongoose.Schema.Types.ObjectId,
             ref: "Post",

@@ -15,7 +15,7 @@ module.exports = (req, res, next) => {
         } catch {
             res.redirect('layouts/mainAppView')
         }
-    } else{
+    } else {
         res.render('layouts/mainAppView')
     }
 }

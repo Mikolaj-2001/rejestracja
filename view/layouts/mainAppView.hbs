@@ -1,12 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Zapis do Wydarzenia</title>
     <link rel="stylesheet" href="CSS/styles.css">
 </head>
+
 <body>
-    
+    <form action="/submit" method="post">
+        <label for="name-and-surname">Imię i Nazwisko</label>
+        <select name="name-and-surname" id="name-and-surname">
+            <option value="name-and-surname" selected hidden>---</option>
+            <option value="name-and-surname"></option>
+        </select>
+        <label for="event">Wydarzenie</label>
+        <select name="event" id="event">
+            <option value="event" selected hidden>---</option>
+            <option value="event">Front-end-developer</option>
+            <option value="event">Back-end-developer</option>
+            <option value="event">Full-stack-developer</option>
+        </select>
+        <label for="city">Miasto</label>
+        <select name="city" id="city">
+            <option value="city" selected hidden>---</option>
+            <option value="city">Warszawa</option>
+            <option value="city">Kraków</option>
+            <option value="city">Wrocław</option>
+        </select>
+    </form>
 </body>
+
 </html>
