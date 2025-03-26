@@ -1,10 +1,10 @@
 const mongoose = require('mongoose')
 
-const Post = new mongoose.Schema(
+const Event = new mongoose.Schema(
     {
         fullName: String,
-        selectedEvent: String, required: true,
-        city: String, required: true,
+        event: String,
+        city: String,
         author: {
             type: mongoose.Schema.Types.ObjectId,
             ref: "newUser"
@@ -13,4 +13,4 @@ const Post = new mongoose.Schema(
     { timestamps: true }
 )
 
-module.exports = mongoose.model("Post", Post)
+module.exports = mongoose.model("Event", Event)

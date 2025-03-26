@@ -2,14 +2,19 @@ const express = require('express')
 const routing = express.Router()
 
 const userController = require('../appControl/userCon')
-const postController = require('../appControl/postCon')
+const eventController = require('../appControl/eventCon')
 
-router.get('/mainAppView', (_req, res) => {
-    res.render('layouts/mainAppView')
-});
-router.post('/mainAppView', userController.create);
+routing.post('/mainAppView/users',userController.create)
 
-router.get('mainAppView', (req, res) => {
+routing.post('/mainAppView/posts',eventController.create)
+
+routing.get('/mainAppView/posts/:id',eventController.post)
+
+routing.put('/mainAppView/posts/:id',eventController.update)
+
+routing.delete('/mainAppView/posts/:id',eventController.delete)
+
+routing.get('mainAppView', (req, res) => {
     if (req.query) {
         res.render('layouts/mainAppView', {
             error: true,
@@ -19,17 +24,6 @@ router.get('mainAppView', (req, res) => {
     res.render('layouts/mainAppView')
 });
 
-
-router.get("/", postController.index);
-
-router.get("/mainAppView", (_req, res) => {
-    res.render("layouts/mainAppView");
-});
-
-router.post("/mainAppView", postController.create);
-
-router.get("/:id", postController.post);
-
-router.post("/mainAppView/:id", postController.update);
+routing.get("/", eventController.index);
 
 module.exports = routing

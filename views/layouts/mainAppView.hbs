@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zapis do Wydarzenia</title>
+
+</head>
+
+<body>
+    <form action="/submit" method="post">
+        <label for="name-and-surname">Imię i Nazwisko</label>
+        <input type="text" name="name" id="name-and-surname" />
+
+        <label for="event">Wydarzenie</label>
+        <select name="event" id="event">
+            <option value="none" selected hidden>---</option>
+            <option value="front-end-developer">front-end-developer</option>
+            <option value="back-end-developer">back-end-developer</option>
+            <option value="full-stack-developer">full-stack-developer</option>
+        </select>
+        <label for="city">Miasto</label>
+        <select name="city" id="city">
+            <option value="none" selected hidden>---</option>
+            <option value="warsaw">Warszawa</option>
+            <option value="crocow">Kraków</option>
+            <option value="wroclaw">Wrocław</option>
+        </select>
+        <button type="submit" id="subbutton">
+            Zapisz na szkolenie
+        </button>
+    </form>
+    <table border="1">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Imię i Nazwisko</th>
+            <th>Wydarzenie</th>
+            <th>Miasto</th>
+            <th>Akcje</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each events}}
+        <tr>
+            <td>{{@index}}</td> 
+            <td>{{this.fullName}}</td> 
+            <td>{{this.event}}</td> 
+            <td>{{this.city}}</td> 
+            <td>
+                <form action="/delete/{{this._id}}" method="POST">
+                    <button type="submit">Usuń</button>
+                </form>
+            </td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+
+</body>
+
+</html>

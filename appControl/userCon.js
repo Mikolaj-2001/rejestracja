@@ -1,25 +1,16 @@
 const User = require('../appModel/userModel')
 
+
 const users = {
     create(req, res) {
-        const newUser = User(req.body);
+        const newUser = new User(req.body);
         newUser
             .save()
             .then(() => {
-                if (created) {
-                    const token = user.generateAuthToken(user)
-                    res.cookie('NewToken', token)
-                    res.redirect("/mainAppView");
-                } else{
-                    res.render('layouts/mainAppView'),{
-                        error : true,
-                        message:"Token nie mógł zostać przypisany",
-                    }
-                    return
-                }
+                res.render('layouts/mainAppView')
             })
             .catch((err) => {
-                if (err.code) {
+                if (err.code === 11000) {
                     res.render("layouts/mainAppView", {
                         error: true,
                         message: "Użytkownik już istnieje",

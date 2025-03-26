@@ -1,0 +1,26 @@
+body {
+    background-color: rgb(204, 194, 194);
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    
+}
+
+#asides{
+display: flex;
+flex-direction: row;
+flex-wrap: wrap;
+justify-content: space-evenly;
+}
+
+#row{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+
+}
