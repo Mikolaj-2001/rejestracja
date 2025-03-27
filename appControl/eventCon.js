@@ -1,11 +1,11 @@
-const event = require('../appModel/eventModel')
+const events = require('../appModel/eventModel')
 const user = require('../appModel/userModel')
 
 module.exports = {
     index: (req, res) => {
         const findIdentifiers = req.query.authorId ? { author: req.query.authorId } : {};
 
-        event.find(findIdentifiers)
+        events.find(findIdentifiers)
             .populate('author')
             .lean()
             .then((events) => {
@@ -16,7 +16,7 @@ module.exports = {
             });
     },
     post: (req, res) => {
-        event.findById(req.params.id)
+        events.findById(req.params.id)
             .populate('author')
             .lean()
             .then((events) => {

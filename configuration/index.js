@@ -9,15 +9,19 @@ const events = require('../appModel/eventModel')
 const generalRouting = require('../appRouting/appRouting')
 const appMiddelware = require('../middelwares/appMiddelware')
 
-app.engine('hbs', hbs.engine({ extname: ".hbs" }))
-app.set('mainView engine', 'hbs')
+app.engine('hbs', hbs.engine({
+    extname: '.hbs',
+    defaultLayout: 'mainAppView', 
+    layoutsDir: __dirname + '/views/layouts/', 
+}))
+app.set('view engine', 'hbs')
 
 app.use(express.static('public'))
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.get("/", function (_req, res) {
-    res.render("mainAppView", {
+    res.render("layouts/mainAppView", {
         fullName: "",
         event: "",
         city: "",
@@ -38,10 +42,10 @@ app.get("/mongoose/:id", function (req, res) {
         });
 })
 
-app.post('/sumbit', (req, _res) => {
+app.post('/submit', (req,res) => {
     const { fullName, event, city } = req.body
 
-    const newEvent = new Event({
+    const newEvent = new events({
         fullName: fullName,
         event: event,
         city: city
@@ -49,7 +53,7 @@ app.post('/sumbit', (req, _res) => {
 
     newEvent.save()
         .then((savedEvent) => {
-            res.redirect(`mongoose/${savedEvent._id}`)
+            res.redirect(`/mongoose/${savedEvent._id}`)
         })
         .catch((err) => {
             res.send(err);
