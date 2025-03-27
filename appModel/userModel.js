@@ -7,7 +7,7 @@ const userModel = new mongoose.Schema(
         surname: { type: String, required: true, unique: true },
         posts: [{
             type: mongoose.Schema.Types.ObjectId,
-            ref: "Event",
+            ref: "event",
         }]
     },
     {

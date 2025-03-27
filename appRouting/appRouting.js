@@ -4,6 +4,7 @@ const routing = express.Router()
 const userController = require('../appControl/userCon')
 const eventController = require('../appControl/eventCon')
 
+
 routing.post('/mainAppView/users',userController.create)
 
 routing.post('/mainAppView/posts',eventController.create)

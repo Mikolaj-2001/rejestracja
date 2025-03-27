@@ -32,7 +32,7 @@
         </button>
     </form>
     <table border="1">
-    <thead>
+    <thead id="head">
         <tr>
             <th>#</th>
             <th>Imię i Nazwisko</th>
@@ -41,7 +41,7 @@
             <th>Akcje</th>
         </tr>
     </thead>
-    <tbody>
+    <tbody id="row">
         {{#each events}}
         <tr>
             <td>{{@index}}</td> 
