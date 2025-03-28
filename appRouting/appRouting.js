@@ -15,14 +15,11 @@ routing.put('/mainAppView/posts/:id',eventController.update)
 
 routing.delete('/mainAppView/posts/:id',eventController.delete)
 
-routing.get('mainAppView', (req, res) => {
-    if (req.query) {
-        res.render('layouts/mainAppView', {
-            error: true,
-        })
-        return;
-    }
-    res.render('layouts/mainAppView')
+routing.get('/mainAppView', (req, res) => {
+    res.render('mainAppView', {
+        error: req.query.error ? true : false,
+    
+    })
 });
 
 routing.get("/", eventController.index);

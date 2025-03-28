@@ -9,7 +9,7 @@ module.exports = {
             .populate('author')
             .lean()
             .then((events) => {
-                res.render('layouts/mainAppView', { events: events })
+                res.render('mainAppView', { events: events })
             })
             .catch((err) => {
                 res.send(err.message);
@@ -20,18 +20,18 @@ module.exports = {
             .populate('author')
             .lean()
             .then((events) => {
-                res.render('layouts/mainAppView', events)
+                res.render('mainAppView', events)
             })
             .catch((err) => {
                 res.send(err);
             });
     },
 
-    create: (req, res) => {
+    create: async (req, res) => {
         const newEvent = new event({ ...req.body, author: res.locals.userId })
-        newEvent.save()
+        await newEvent.save()
 
-        user.updateOne(
+        await user.updateOne(
             { _id: res.locals.userId },
             { $push: { events: newEvent._id } }
         ).catch((err) => {
@@ -41,8 +41,11 @@ module.exports = {
     },
 
     update: (req, res) => {
-        event.findByIdAndUpdate(req.params.id, req.body)
+        events.findByIdAndUpdate(req.params.id, req.body, { new: true })
             .then((event) => {
+                if (!event) {
+                    return res.sent('Nie znaleziono nowego wydarzenia')
+                }
                 res.redirect("/mainAppView/" + event._id);
             })
             .catch((err) => {
@@ -51,15 +54,18 @@ module.exports = {
     },
 
     delete: (req, res) => {
-        event.findByIdAndDelete(req.params.id)
-            .then(() => {
-                user.updateOne(
+        events.findByIdAndDelete(req.params.id)
+            .then((deletedEvent) => {
+                if (!deletedEvent) {
+                    return res.send("Nie znaleziono wydarzenia do usunięcia.");
+                }
+
+                return user.updateOne(
                     { _id: res.locals.userId },
                     { $pull: { events: req.params.id } }
-                ).catch((err) => {
-                    res.send(err);
-                });
-
+                );
+            })
+            .then(() => {
                 res.redirect("/mainAppView");
             })
             .catch((err) => {

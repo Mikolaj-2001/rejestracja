@@ -1,10 +1,8 @@
-const jwt = require('jsonwebtoken')
 const mongoose = require('mongoose')
 
 const userModel = new mongoose.Schema(
     {
-        name: { type: String, required: true, unique: true },
-        surname: { type: String, required: true, unique: true },
+        fullName: { type: String, required: true, unique: true },
         posts: [{
             type: mongoose.Schema.Types.ObjectId,
             ref: "event",

@@ -11,17 +11,17 @@
 <body>
     <form action="/submit" method="post">
         <label for="name-and-surname">Imię i Nazwisko</label>
-        <input type="text" name="name" id="name-and-surname" />
+        <input type="text" name="fullName" id="name-and-surname" required/>
 
         <label for="event">Wydarzenie</label>
-        <select name="event" id="event">
+        <select name="event" id="event" required>
             <option value="none" selected hidden>---</option>
             <option value="front-end-developer">front-end-developer</option>
             <option value="back-end-developer">back-end-developer</option>
             <option value="full-stack-developer">full-stack-developer</option>
         </select>
         <label for="city">Miasto</label>
-        <select name="city" id="city">
+        <select name="city" id="city" required>
             <option value="none" selected hidden>---</option>
             <option value="warsaw">Warszawa</option>
             <option value="crocow">Kraków</option>
@@ -42,19 +42,17 @@
         </tr>
     </thead>
     <tbody id="row">
-        {{#each events}}
         <tr>
-            <td>{{@index}}</td> 
-            <td>{{this.fullName}}</td> 
-            <td>{{this.event}}</td> 
-            <td>{{this.city}}</td> 
+            <td>1</td> 
+            <td>{{fullName}}</td> 
+            <td>{{event}}</td> 
+            <td>{{city}}</td> 
             <td>
-                <form action="/delete/{{this._id}}" method="POST">
+                <form action="/mainAppView/posts/{{this._id}}?_method=DELETE" method="POST">
                     <button type="submit">Usuń</button>
                 </form>
             </td>
         </tr>
-        {{/each}}
     </tbody>
 </table>
 
