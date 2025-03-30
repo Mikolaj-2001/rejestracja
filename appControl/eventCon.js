@@ -2,19 +2,36 @@ const events = require('../appModel/eventModel')
 const user = require('../appModel/userModel')
 
 module.exports = {
-    index: (req, res) => {
-        const findIdentifiers = req.query.authorId ? { author: req.query.authorId } : {};
+    create: (req, res) => {
+        const { fullName, event, city } = req.body
 
-        events.find(findIdentifiers)
-            .populate('author')
-            .lean()
-            .then((events) => {
-                res.render('mainAppView', { events: events })
+        console.log("Dane uzyskane:", { fullName, event, city });
+
+        const newEvent = new events({
+            fullName: fullName,
+            event: event,
+            city: city
+        })
+
+        newEvent.save()
+            .then((savedEvent) => {
+                console.log("Zapisane wydarzenie:", savedEvent);
+                res.redirect(`/events`)
             })
             .catch((err) => {
-                res.send(err.message);
+                res.send(err);
             });
     },
+
+    index: function (_req, res) {
+        events.find().lean().then(function (allEvents) {
+            res.render('mainAppView', {
+                allEvents,
+            })
+        }
+        )
+    },
+
     post: (req, res) => {
         events.findById(req.params.id)
             .populate('author')
@@ -26,20 +43,6 @@ module.exports = {
                 res.send(err);
             });
     },
-
-    create: async (req, res) => {
-        const newEvent = new event({ ...req.body, author: res.locals.userId })
-        await newEvent.save()
-
-        await user.updateOne(
-            { _id: res.locals.userId },
-            { $push: { events: newEvent._id } }
-        ).catch((err) => {
-            res.send(err)
-        })
-        res.redirect('/mainAppView')
-    },
-
     update: (req, res) => {
         events.findByIdAndUpdate(req.params.id, req.body, { new: true })
             .then((event) => {
@@ -54,6 +57,7 @@ module.exports = {
     },
 
     delete: (req, res) => {
+        console.log(req.params)
         events.findByIdAndDelete(req.params.id)
             .then((deletedEvent) => {
                 if (!deletedEvent) {
@@ -66,7 +70,7 @@ module.exports = {
                 );
             })
             .then(() => {
-                res.redirect("/mainAppView");
+                res.redirect("/events");
             })
             .catch((err) => {
                 res.send(err);

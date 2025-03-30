@@ -30,6 +30,7 @@ const users = {
                 return newUser.save();
             })
             .then(() => {
+                console.log('AA')
                 res.render('mainAppView', {
                     success: true,
                     message: 'Użytkownik został dodany!',

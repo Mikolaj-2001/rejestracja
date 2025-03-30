@@ -9,9 +9,9 @@
 </head>
 
 <body>
-    <form action="/submit" method="post">
+    <form action="/events/create" method="post">
         <label for="name-and-surname">Imię i Nazwisko</label>
-        <input type="text" name="fullName" id="name-and-surname" required/>
+        <input type="text" name="fullName" id="name-and-surname" required />
 
         <label for="event">Wydarzenie</label>
         <select name="event" id="event" required>
@@ -32,29 +32,32 @@
         </button>
     </form>
     <table border="1">
-    <thead id="head">
-        <tr>
-            <th>#</th>
-            <th>Imię i Nazwisko</th>
-            <th>Wydarzenie</th>
-            <th>Miasto</th>
-            <th>Akcje</th>
-        </tr>
-    </thead>
-    <tbody id="row">
-        <tr>
-            <td>1</td> 
-            <td>{{fullName}}</td> 
-            <td>{{event}}</td> 
-            <td>{{city}}</td> 
-            <td>
-                <form action="/mainAppView/posts/{{this._id}}?_method=DELETE" method="POST">
-                    <button type="submit">Usuń</button>
-                </form>
-            </td>
-        </tr>
-    </tbody>
-</table>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Imię i Nazwisko</th>
+                <th>Wydarzenie</th>
+                <th>Miasto</th>
+                <th>Akcje</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each allEvents}}
+            <tr>
+                <td>{{ plusOne @index}}</td>
+                <td>{{this.fullName}}</td>
+                <td>{{this.event}}</td>
+                <td>{{this.city}}</td>
+                <td>
+                    <form action="/events/{{this._id}}?_method=DELETE" method="POST"
+                        onsubmit="return confirm('Czy na pewno chcesz usunąć to wydarzenie?');">
+                        <button type="submit">Usuń</button>
+                    </form>
+                </td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
 
 </body>
 
