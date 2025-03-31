@@ -1,7 +1,6 @@
 const express = require('express')
 const routing = express.Router()
 
-const userController = require('../appControl/userCon')
 const eventController = require('../appControl/eventCon')
 
 routing.get("/", eventController.index);

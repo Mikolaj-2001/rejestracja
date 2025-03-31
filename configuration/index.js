@@ -1,3 +1,4 @@
+require('dotenv').config()
 const express = require('express')
 const app = express()
 const hbs = require('express-handlebars')
@@ -6,9 +7,7 @@ const mongoose = require('mongoose')
 
 mongoose.connect('mongodb://127.0.0.1:27017/Registration')
 
-const events = require('../appModel/eventModel')
 const eventsRouting = require('../appRouting/eventsRouting')
-const appMiddelware = require('../middelwares/appMiddelware')
 
 const methodOverride = require('method-override');
 app.use(methodOverride('_method'));
